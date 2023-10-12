@@ -2,7 +2,7 @@
   "name": "cleaner-playwright-tests",
   "private": true,
   "scripts": {
-    "build": "slidev build --download --base /presentations/cleaner-playwright-tests",
+    "build": "slidev build *.md --download --base /presentations/cleaner-playwright-tests",
     "dev": "slidev --open",
     "export": "slidev export"
   },
