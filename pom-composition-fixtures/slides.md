@@ -472,7 +472,7 @@ layout: end
 
 # Credits
 
-Some code borrowed from [playwright.dev/docs](https://www.playwright.dev/docs).
+Some code and quotes borrowed from [playwright.dev/docs](https://www.playwright.dev/docs).
 
 - GitHub: [@clmay](https://github.com/clmay)
 - LinkedIn: [/in/chasemay/](https://linkedin.com/in/chasemay/)
