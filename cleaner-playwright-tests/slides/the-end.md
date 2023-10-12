@@ -17,5 +17,8 @@ of our pages under a single, coherent interface! 🎉 🚀
 
 ## Author
 
-2023 © Chase May  \
-[@clmay](https://github.com/clmay) | [/in/chasemay/](https://linkedin.com/in/chasemay/)
+[@clmay](https://github.com/clmay)  \
+  \
+[/in/chasemay/](https://linkedin.com/in/chasemay/)  \
+  \
+Copyright © 2023. Chase May. No rights reserved.
