@@ -493,8 +493,18 @@ layout: end
 
 # Credits
 
-Some code and quotes borrowed from [playwright.dev/docs](https://www.playwright.dev/docs).
+This presentation made possible by:
 
-GitHub: [@clmay](https://github.com/clmay)  \
+[Slidev](https://sli.dev): an amazing presentation authoring tool
+
+[Playwright](https://www.playwright.dev): some code and quotes were borrowed from the [docs](https://www.playwright.dev/docs)
+
+
+
+---
+layout: center
+---
+
+2023 © Chase May  \
   \
-LinkedIn: [/in/chasemay/](https://linkedin.com/in/chasemay/)
+[@clmay](https://github.com/clmay) | [/in/chasemay/](https://linkedin.com/in/chasemay/)
