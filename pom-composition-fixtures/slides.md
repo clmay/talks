@@ -344,7 +344,7 @@ layout: image-left
 
 Composition
 
-<!-- (This slide is an example of composition failure.) -->
+<!-- (This slide is an example of failure with respect to composition... 🤪) -->
 
 
 
