@@ -79,7 +79,7 @@ layout: center
 
 Using our page object in a test:
 
-```js {1,7}
+```js {1,4,7}
 // tests/some.test.js
 
 import { test } from "@playwright/test";
