@@ -51,7 +51,7 @@ A simple page object:
 
 import { expect } from "@playwright/test";
 
-export class PlaywrightDocsPage {
+export class SomePage {
   constructor(page) {
     this.page = page;
     this.getStarted = page.getByRole('...');
@@ -83,10 +83,10 @@ Using our page object in a test:
 // tests/some.test.js
 
 import { test } from "@playwright/test";
-import { PlaywrightDocsPage } from "../pages/playwright-docs.js";
+import { SomePage } from "...js";
 
 test("getting started", async ({ page }) => {
-  const docsPage = new PlaywrightDocsPage(page);
+  const docsPage = new SomePage(page);
 
   await docsPage.goto();
   await docsPage.getStarted();
@@ -134,21 +134,17 @@ will look like this:
 // tests/some.test.js
 
 import { test } from "@playwright/test";
-import { PageOne } from "...";
-import { PageTwo } from "...";
+import { SomePage } from "...";
 import { AnotherPage } from "...";
 import { AndAnother } from "...";
-import { YetAnother } from "...";
 import { EtcEtc } from "...";
 // ...
 
 test("getting started", async ({ page }) => {
-  const a = new PageOne(page);
-  const b = new PageTwo(page);
-  const c = new AnotherPage(page);
-  const d = new AndAnother(page);
-  const e = new YetAnother(page);
-  const f = new EtcEtc(page);
+  const somePage = new SomePage(page);
+  const anotherPage = new AnotherPage(page);
+  const andAnother = new AndAnother(page);
+  const etcEtc = new EtcEtc(page);
   // ...
 });
 ```
@@ -189,9 +185,9 @@ layout: center
 
 # In plain English, *s'il te plaît?*
 
-Your tests into fixtures in order to have what they need to run.
+Your tests use fixtures in order to have what they need to run.
 
-We've actually already seen them before! Remember this?
+We've actually already seen them before; remember this?
 
 
 ```js {1,3}
@@ -201,7 +197,7 @@ test("getting started", async ({ page }) => {
   // ...
 });
 ```
-The `page` object is a fixture that Playwright provides for us, free of charge!
+The `page` object is a fixture that Playwright provides for us, free of charge.
 
 <!-- "Think of fixtures as something you have to hook your tests up to in order to run." Just like lighting: you plug the lightbulb into the fixture. Also helps you think about setup: you need the right kind of wiring, switch, state, etc. -->
 
@@ -228,15 +224,15 @@ Let's create fixtures for our example that had too much boilerplate:
 
 import { test as base } from "@playwright/test";
 
-import { PageOne } from "...";
+import { SomePage } from "...";
 import { AnotherPage } from "...";
 import { EtcEtc } from "...";
 // ...
 
 export const test = base.extend({
-    pageOne: async ({ page }, use) => {
-        const pageOne = new PageOne(page);
-        await use(pageOne);
+    somePage: async ({ page }, use) => {
+        const somePage = new SomePage(page);
+        await use(somePage);
     },
     anotherPage: async ({ page }, use) => {
         const anotherPage = new AnotherPage(page);
@@ -258,27 +254,28 @@ layout: center
 
 Now, when we want to use multiple pages for a test, things are much cleaner. We turned this:
 
-```js {1,5-11}
+```js {1,3-5,8-11}
 // tests/some.test.js
 
+import { SomePage } from "...";
+import { AnotherPage } from "...";
+import { EtcEtc } from "...";
 // ...
 
 test("getting started", async ({ page }) => {
-  const a = new PageOne(page);
-  const c = new AnotherPage(page);
-  const f = new EtcEtc(page);
+  const somePage = new SomePage(page);
+  const anotherPage = new AnotherPage(page);
+  const etcEtc = new EtcEtc(page);
   // ...
 });
 ```
 
 Into this:
 
-```js {1,5}
-// tests/some.test.js
-
+```js {1,3}
 import { test } from "../fixtures.js";
 
-test("getting started", ({ pageOne, anotherPage, etcEtc }) => {
+test("getting started", ({ somePage, anotherPage, etcEtc }) => {
   // ...
 });
 ```
@@ -301,9 +298,10 @@ layout: center
 
 # Well, sort of...
 
-You're right, now our `fixtures.js` has all of the boilerplate that used to be present in our test! However, this is
-still an overall improvement; instead of duplicating all of the instantiation code in every test, the nasty repetition
-is isolated to just one file!
+You're right, our `fixtures.js` now has all of the boilerplate that used to be present in our test...
+
+However, this is still an overall improvement; instead of duplicating all of the instantiation code in every test, the
+nasty repetition is isolated to just one file!
 
 
 
@@ -311,14 +309,35 @@ is isolated to just one file!
 layout: center
 ---
 
-However, we still have the problem of needing to include a lot of fixtures individually in every test... Remember this?
+We still have the problem of needing to include a lot of fixtures individually in every test... Remember this?
 
 ```js {1,5}
 // tests/some.test.js
 
 import { test } from "../fixtures.js";
 
-test("getting started", ({ pageOne, anotherPage, etcEtc, /* and potentially many more */ }) => {
+test("getting started", ({ somePage, anotherPage, etcEtc }) => {
+  // ...
+});
+```
+It can eventually grow to look like this:
+
+```js {1,5-15}
+// tests/some.test.js
+
+import { test } from "../fixtures.js";
+
+test("getting started", ({
+  somePage,
+  anotherPage,
+  thisisWhat,
+  happensWhen,
+  yourTest,
+  growsComplex,
+  andAccesses,
+  lotsOfPages,
+  etcEtc,
+}) => {
   // ...
 });
 ```
@@ -329,7 +348,9 @@ test("getting started", ({ pageOne, anotherPage, etcEtc, /* and potentially many
 layout: center
 ---
 
-# What if I told you we can do better still?
+As you can see, there's can still be a lot of boilerplate when we have a fixture for every page.
+
+# What if I told you we can do better yet?
 
 How, you might ask? Well, we still have one more trick up our sleeves...
 
@@ -360,7 +381,7 @@ suggestions... 🙂
 
 import { test } from "@playwright/test";
 
-import { PageOne } from "...";
+import { SomePage } from "...";
 import { AnotherPage } from "...";
 import { AndAnother } from "...";
 import { EtcEtc } from "...";
@@ -370,7 +391,7 @@ export class Application {
   constructor(page) {
     this.page = page;
 
-    this.pageOne = new PageOne(page)
+    this.somePage = new SomePage(page)
     this.another = new AnotherPage(page)
     this.andAnother = new AndAnother(page)
     this.etcEtc = new EtcEtc(page)
@@ -416,7 +437,7 @@ layout: center
 import { test } from "../fixtures.js";
 
 test("getting started", ({ app }) => {
-  await app.pageOne.doSomething();
+  await app.somePage.doSomething();
   await app.another.doSomethingElse();
   // ...
 });
@@ -443,7 +464,7 @@ import { test } from "../fixtures.js";
 test("getting started", ({ app: _app }) => {
 /** @type {Application} */ const app = _app;
 
-  await app.pageOne.doSomething();
+  await app.somePage.doSomething();
   await app.another.doSomethingElse();
   // ...
 });
