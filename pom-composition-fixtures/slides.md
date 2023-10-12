@@ -31,9 +31,11 @@ layout: image-left
 image: /shakespeare.jpg
 ---
 
-# QQ...
+# Question...
 
-What's in a page?
+> What's in a ~~name~~ page?
+
+—William Shakespeare, at some point, maybe...
 
 
 
@@ -41,17 +43,18 @@ What's in a page?
 layout: center
 ---
 
-The Page-Object Model allows us to encapsulate all of the logic for interacting with a given page:
+A simple page object:
 
 ```js
+// pages/playwright-docs-page.js
+
 import { expect } from "@playwright/test";
 
 export class PlaywrightDocsPage {
   constructor(page) {
     this.page = page;
-    this.getStartedLink = page.getByRole('link', { name: "Getting Started" });
-    this.getStartedHeader = page.locator('h1', { hasText: "Installation" });
-    this.tocList = page.locator('article div.markdown ul > li > a');
+    this.getStarted = page.getByRole('...');
+    this.header = page.locator('h1');
   }
 
   async goto() {
@@ -59,8 +62,8 @@ export class PlaywrightDocsPage {
   }
 
   async getStarted() {
-    await this.getStartedLink.first().click();
-    await expect(this.gettingStartedHeader).toBeVisible();
+    await this.getStarted.click();
+    await expect(this.header).toBeVisible();
   }
 }
 ```
@@ -68,5 +71,54 @@ export class PlaywrightDocsPage {
 
 
 ---
+layout: center
+---
 
-# How can we use our page object(s) in a fixture?
+Using our page object in a test:
+
+```js
+// tests/some.test.js
+
+import { test } from "@playwright/test";
+import { PlaywrightDocsPage } from "../pages/playwright-docs.js";
+
+test("getting started", async ({ page }) => {
+  const docsPage = new PlaywrightDocsPage(page);
+
+  await docsPage.goto();
+  await docsPage.getStarted();
+  // ...
+});
+```
+
+
+
+---
+layout: center
+---
+
+# So, what's it good for?
+
+---
+layout: center
+---
+
+# Encapsulation & DRY
+
+The page-object model allows us to encapsulate the logic for interacting with a page in a reusable way:
+
+
+
+---
+layout: center
+---
+
+# OK... what's the catch?
+
+
+
+---
+layout: center
+---
+
+Let's say you're writing an E2E test for a complex user flow...
