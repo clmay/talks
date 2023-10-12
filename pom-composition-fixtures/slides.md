@@ -1,13 +1,17 @@
 ---
-background: https://source.unsplash.com/collection/94734566/1920x1080
+background: >-
+  https://images.unsplash.com/photo-1530819568329-97653eafbbfa?fit=crop&h=1080&w=1920
 transition: slide-left
+title: Cleaner Playwright tests
 ---
 
 # Cleaner Playwright tests
 
 ### Using fixtures, page-object models, and composition
 
-
+<!--
+There's an eclipse-related Easter egg in this title slide... Can anyone find it?
+-->
 
 ---
 layout: center
@@ -29,7 +33,7 @@ image: /shakespeare.jpg
 
 # QQ...
 
-What's in a `page`?
+What's in a page?
 
 
 
