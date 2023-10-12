@@ -1,5 +1,5 @@
 {
-  "name": "pom-composition-fixtures",
+  "name": "cleaner-playwright-tests",
   "private": true,
   "scripts": {
     "build": "slidev build",
