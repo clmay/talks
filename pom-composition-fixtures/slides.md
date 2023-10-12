@@ -5,7 +5,7 @@ transition: slide-left
 
 # Cleaner Playwright tests
 
-### Using fixtures, page-object models, composition
+### Using fixtures, page-object models, and composition
 
 
 
