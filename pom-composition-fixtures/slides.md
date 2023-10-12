@@ -1,5 +1,6 @@
 ---
 background: https://images.unsplash.com/photo-1530819568329-97653eafbbfa?fit=crop&h=1080&w=1920
+lineNumbers: true
 transition: slide-left | slide-right
 ---
 
@@ -55,6 +56,7 @@ export class PlaywrightDocsPage {
     this.page = page;
     this.getStarted = page.getByRole('...');
     this.header = page.locator('h1');
+    // ...
   }
 
   async goto() {
@@ -65,6 +67,7 @@ export class PlaywrightDocsPage {
     await this.getStarted.click();
     await expect(this.header).toBeVisible();
   }
+  // ...
 }
 ```
 
@@ -76,7 +79,7 @@ layout: center
 
 Using our page object in a test:
 
-```js
+```js {1,7}
 // tests/some.test.js
 
 import { test } from "@playwright/test";
@@ -131,12 +134,12 @@ will look like this:
 // tests/some.test.js
 
 import { test } from "@playwright/test";
-import { PageOne } from "../pages/...js";
-import { PageTwo } from "../pages/...js";
-import { AnotherPage } from "../pages/...js";
-import { AndAnother } from "../pages/...js";
-import { YetAnother } from "../pages/...js";
-import { EtcEtc } from "../pages/...js";
+import { PageOne } from "...";
+import { PageTwo } from "...";
+import { AnotherPage } from "...";
+import { AndAnother } from "...";
+import { YetAnother } from "...";
+import { EtcEtc } from "...";
 // ...
 
 test("getting started", async ({ page }) => {
@@ -188,11 +191,15 @@ layout: center
 
 Your tests into fixtures in order to have what they need to run.
 
-We've actually already seen them before!
+We've actually already seen them before! Remember this?
 
 
-```js
-test("getting started", async ({ page }) => {});
+```js {1,3}
+// tests/some.test.js
+
+test("getting started", async ({ page }) => {
+  // ...
+});
 ```
 The `page` object is a fixture that Playwright provides for us, free of charge!
 
@@ -214,50 +221,16 @@ We can use custom fixtures to relocate much of the boilerplate from the previous
 layout: center
 ---
 
-First, a basic example of defining a custom fixture:
-
-
-```js
-// fixtures.js
-import { PlaywrightDocsPage } from "./pw-docs-page.js";
-import { test as base } from "@playwright/test";
-
-
-export const test = base.extend({
-    docsPage: async ({ page }, use) => {
-        const docsPage = new PlaywrightDocsPage(page);
-        await use(docsPage);
-    },
-});
-```
-
-```js
-// tests/some.test.js
-test('something', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
-
-  await expect(page).toHaveTitle(/Playwright/);
-});
-
-```
-
-
-
----
-layout: center
----
-
 Let's create fixtures for our example that had too much boilerplate:
 
-```js
-// tests/some.test.js
+```js {1,5-7,11-12,15-16,19-20}
+// fixtures.js
 
 import { test as base } from "@playwright/test";
 
-import { test } from "@playwright/test";
-import { PageOne } from "../pages/...js";
-import { AnotherPage } from "../pages/...js";
-import { EtcEtc } from "../pages/...js";
+import { PageOne } from "...";
+import { AnotherPage } from "...";
+import { EtcEtc } from "...";
 // ...
 
 export const test = base.extend({
@@ -283,10 +256,27 @@ export const test = base.extend({
 layout: center
 ---
 
-Now, when we want to use multiple pages for a test, things are much cleaner:
+Now, when we want to use multiple pages for a test, things are much cleaner. We turned this:
 
-```js
-// tests/some-test.js
+```js {1,5-11}
+// tests/some.test.js
+
+// ...
+
+test("getting started", async ({ page }) => {
+  const a = new PageOne(page);
+  const c = new AnotherPage(page);
+  const f = new EtcEtc(page);
+  // ...
+});
+```
+
+Into this:
+
+```js {1,5}
+// tests/some.test.js
+
+import { test } from "../fixtures.js";
 
 test("getting started", ({ pageOne, anotherPage, etcEtc }) => {
   // ...
@@ -321,7 +311,17 @@ is isolated to just one file!
 layout: center
 ---
 
-# Question... This talk isn't over yet, is it? 🙄
+However, we still have the problem of needing to include a lot of fixtures individually in every test... Remember this?
+
+```js {1,5}
+// tests/some.test.js
+
+import { test } from "../fixtures.js";
+
+test("getting started", ({ pageOne, anotherPage, etcEtc, /* and potentially many more */ }) => {
+  // ...
+});
+```
 
 
 
@@ -329,11 +329,11 @@ layout: center
 layout: center
 ---
 
-# Not so fast! We can do better yet!.. How?
+# What if I told you we can do better still?
 
-We have one more trick up our sleeves...
+How, you might ask? Well, we still have one more trick up our sleeves...
 
-
+<!-- You might ask this, but only if you aren't already hoping for this talk to end... -->
 
 ---
 image: https://www.wassilykandinsky.net/images/works/50.jpg
@@ -352,7 +352,127 @@ Composition
 layout: center
 ---
 
+Let's create another class. I like to call these `index` files, but I'm open to a better name if someone has
+suggestions... 🙂
+
+```js
+// pages/index.js
+
+import { test } from "@playwright/test";
+
+import { PageOne } from "...";
+import { AnotherPage } from "...";
+import { AndAnother } from "...";
+import { EtcEtc } from "...";
+// ...
+
+export class Application {
+  constructor(page) {
+    this.page = page;
+
+    this.pageOne = new PageOne(page)
+    this.another = new AnotherPage(page)
+    this.andAnother = new AndAnother(page)
+    this.etcEtc = new EtcEtc(page)
+    // ...
+  }
+  // ...
+}
+```
+
+
+
+---
+layout: center
+---
+
+Now, we can dramatically simplify our fixture:
+
+
+```js {1,4,7-9}
+// fixtures.js
+
+import { test as base } from "@playwright/test";
+import { Application } from "pages/index.js";
+
+export const test = base.extend({
+    app: async ({ page }, use) => {
+        const app = new Application(page);
+        await use(app);
+    },
+});
+```
+
+---
+layout: center
+---
+
+# AND our test!
+
+
+```js {1,5-7}
+// tests/some.test.js
+
+import { test } from "../fixtures.js";
+
+test("getting started", ({ app }) => {
+  await app.pageOne.doSomething();
+  await app.another.doSomethingElse();
+  // ...
+});
+```
+
+
+
+---
+layout: center
+---
+
+# Bonus content!
+
+Sadly, Playwright's fixture mechanism editor breaks completions / suggestions...
+
+However, you can add JSDoc type annotations to fix this!
+
+
+```js {1,5-6,13}
+// tests/some.test.js
+
+import { test } from "../fixtures.js";
+
+test("getting started", ({ app: _app }) => {
+/** @type {Application} */ const app = _app;
+
+  await app.pageOne.doSomething();
+  await app.another.doSomethingElse();
+  // ...
+});
+
+/** @typedef {import("../pages/index.js").Application} Application */
+```
+
+
+
+---
+layout: center
+---
+
+# That's a wrap! (Finally! 🤣)
+
+Now, we have simple tests and simple fixtures.
+
+Best of all, we did it by adding a single additional class that collects all of our pages under a single, coherent
+interface! 🎉 🚀
+
+
+
+---
+layout: end
+---
+
 # Credits
 
-Some of the code examples used for this presentation were borrowed directly from
-[playwright.dev/docs](https://www.playwright.dev/docs).
+Some code borrowed from: [playwright.dev/docs](https://www.playwright.dev/docs).
+
+- GitHub: [@clmay](https://github.com/clmay)
+- LinkedIn: [/in/chasemay/](https://linkedin.com/in/chasemay/)
