@@ -1,8 +1,6 @@
 ---
-background: >-
-  https://images.unsplash.com/photo-1530819568329-97653eafbbfa?fit=crop&h=1080&w=1920
-transition: slide-left
-title: Cleaner Playwright tests
+background: https://images.unsplash.com/photo-1530819568329-97653eafbbfa?fit=crop&h=1080&w=1920
+transition: slide-left | slide-right
 ---
 
 # Cleaner Playwright tests
@@ -27,8 +25,8 @@ layout: center
 
 
 ---
-layout: image-left
 image: /shakespeare.jpg
+layout: image-left
 ---
 
 # Question...
@@ -314,12 +312,47 @@ layout: center
 # Well, sort of...
 
 You're right, now our `fixtures.js` has all of the boilerplate that used to be present in our test! However, this is
-still an overall improvement; instead of duplicating all of the instantiation code in every test,
+still an overall improvement; instead of duplicating all of the instantiation code in every test, the nasty repetition
+is isolated to just one file!
 
 
 
 ---
+layout: center
+---
+
+# Question... This talk isn't over yet, is it? 🙄
+
+
+
+---
+layout: center
+---
+
+# Not so fast! We can do better yet!.. How?
+
+We have one more trick up our sleeves...
+
+
+
+---
+image: https://www.wassilykandinsky.net/images/works/50.jpg
+layout: image-left
+---
+
+# Answer:
+
+Composition
+
+<!-- (This slide is an example of composition failure.) -->
+
+
+
+---
+layout: center
+---
 
 # Credits
 
-Some code examples were borrowed directly from the Playwright docs: playwright.dev/docs
+Some of the code examples used for this presentation were borrowed directly from
+[playwright.dev/docs](https://www.playwright.dev/docs).
