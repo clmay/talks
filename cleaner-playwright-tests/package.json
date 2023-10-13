@@ -2,9 +2,7 @@
   "name": "cleaner-playwright-tests",
   "private": true,
   "scripts": {
-    "build": "slidev build *.md --base /presentations/cleaner-playwright-tests",
-    "dev": "slidev --open",
-    "export": "slidev export"
+    "dev": "slidev --open"
   },
   "dependencies": {
     "@slidev/cli": "^0.43.7",
