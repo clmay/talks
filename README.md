@@ -1,2 +1,2 @@
 # presentations
-Presentations, slide decks, etc.
+Presentations, talks, slide decks, etc.
