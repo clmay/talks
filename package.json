@@ -1,5 +1,10 @@
 {
   "name": "presentations",
   "description": "Presentations, talks, slide decks, etc.",
-  "scripts": {}
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3"
+  }
 }
