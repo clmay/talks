@@ -2,6 +2,7 @@
 lineNumbers: true
 src: slides/beginning.md
 transition: slide-left | slide-right
+title: Cleaner Playwright Tests
 ---
 
 ---
