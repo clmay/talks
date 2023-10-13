@@ -2,6 +2,7 @@
   "name": "cleaner-playwright-tests",
   "private": true,
   "scripts": {
+    "build": "slidev build --base /talks/cleaner-playwright-tests/",
     "dev": "slidev --open"
   },
   "dependencies": {
