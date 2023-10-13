@@ -2,7 +2,7 @@
   "name": "cleaner-playwright-tests",
   "private": true,
   "scripts": {
-    "build": "slidev build --base /talks/cleaner-playwright-tests/ --out ~/Projects/clmay.github.io/talks/cleaner-playwright-testsg",
+    "build": "slidev build --base /talks/cleaner-playwright-tests/ --out ~/Projects/clmay.github.io/talks/cleaner-playwright-tests",
     "dev": "slidev --open"
   },
   "dependencies": {
