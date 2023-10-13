@@ -2,7 +2,7 @@
 layout: center
 ---
 
-# That's a wrap! (Finally! 🤣)
+# That's a wrap!
 
 Now, we have simple tests and simple fixtures.
 
@@ -11,14 +11,8 @@ of our pages under a single, coherent interface! 🎉 🚀
 
 ## Credits
 
-[Slidev](https://sli.dev): the amazing presentation tool powering this talk.
+Chase May ([GitHub](https://github.com/clmay), [LinkedIn](https://linkedin.com/in/chasemay/))
 
-[Playwright](https://www.playwright.dev): some code and quotes were borrowed from the [docs](https://www.playwright.dev/docs).
+Made with ❤️ and [Slidev](https://sli.dev).
 
-## Author
-
-[@clmay](https://github.com/clmay)  \
-  \
-[/in/chasemay/](https://linkedin.com/in/chasemay/)  \
-  \
 Copyright © 2023. Chase May. No rights reserved.
