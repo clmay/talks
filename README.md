@@ -1,3 +1,3 @@
-# presentations
+# talks
 
-Presentations, talks, slide decks, etc.
+Talks, presentations, slide decks, etc.
