@@ -1,2 +1,4 @@
+*.md linguist-detectable=true
+
 **/assets/* linguist-generated=trueg
 **/*.html linguist-generated=true
