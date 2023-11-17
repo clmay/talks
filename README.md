@@ -7,7 +7,7 @@ Talks, presentations, slide decks, etc.
 ```sh
 # create a new project:
 
-mkdir <new-project-name> && cd <new-project-name>
+mkdir src/<new-project-name> && cd src/<new-project-name>
 
 npm init slidev
 ```
@@ -15,7 +15,7 @@ npm init slidev
 ```sh
 # run / build an existing project:
 
-cd <path/to/talk>
+cd src/<project-name>
 
 npm install
 
