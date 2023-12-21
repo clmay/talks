@@ -1,8 +1,8 @@
-- [By date](#by-date)
+
+- [Chronological](#chronological)
 - [Alphabetical](#alphabetical)
 
-## By date
-
+## Chronological
 - October 2023: [Cleaner Playwright Tests: with Page Objects, Composition, and Fixtures](/talks/cleaner-playwright-tests/)
 
 ## Alphabetical
