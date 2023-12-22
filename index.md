@@ -2,7 +2,7 @@
 - [Alphabetical](#alphabetical)
 - [Chronological](#chronological)
 
-<!--TODO: figure out a why to automatically generate these lists -->
+<!--TODO: figure out a way to generate this list programmaticaly-->
 
 ## Alphabetical
 
