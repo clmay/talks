@@ -1,5 +1,3 @@
-# talks
-
 - [Alphabetical](#alphabetical)
 - [Chronological](#chronological)
 
