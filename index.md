@@ -1,7 +1,7 @@
 - [Alphabetical](#alphabetical)
 - [Chronological](#chronological)
 
-<!--TODO: figure out a way to generate this list programmaticaly-->
+<!--TODO: figure out a way to generate these lists programmaticaly-->
 
 ## Alphabetical
 
